@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
 function App() {
   const [items, setItems] = useState([]);
   const [name, setName] = useState('');
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://54.147.158.122:5000'
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://18.212.226.214:5000';
 
-  const fetchItems = async () => {
+  const fetchItems = useCallback(async () => {
     const res = await axios.get(`${API_BASE_URL}/api/items`);
     setItems(res.data);
-  };
+  }, [API_BASE_URL]); // include API_BASE_URL if it can change
 
   const addItem = async () => {
     await axios.post(`${API_BASE_URL}/api/items`, { name });
@@ -20,7 +19,7 @@ function App() {
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [fetchItems]); // No more warning
 
   return (
     <div style={{ padding: '20px' }}>
@@ -41,4 +40,6 @@ function App() {
 }
 
 export default App;
+
+
 
