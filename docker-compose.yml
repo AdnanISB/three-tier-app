@@ -18,7 +18,7 @@ services:
 
         
   backend:
-    build: ./backend
+    image: ghcr.io/AdnanISB/three-tier-app-backend:latest
     container_name: backend
     ports:
       - "5000:5000"
@@ -38,7 +38,7 @@ services:
 
 
   frontend:
-    build: ./frontend
+    image: ghcr.io/AdnanISB/three-tier-app-frontend:latest
     container_name: frontend
     ports:
       - "3000:3000"
