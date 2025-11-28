@@ -18,7 +18,7 @@ services:
 
         
   backend:
-    image: ghcr.io/AdnanISB/three-tier-app-backend:latest
+    image: 478867930505.dkr.ecr.us-east-1.amazonaws.com/three-tier-app-backend:latest
     container_name: backend
     ports:
       - "5000:5000"
@@ -38,7 +38,7 @@ services:
 
 
   frontend:
-    image: ghcr.io/AdnanISB/three-tier-app-frontend:latest
+    image: 478867930505.dkr.ecr.us-east-1.amazonaws.com/three-tier-app-frontend:latest
     container_name: frontend
     ports:
       - "3000:3000"
