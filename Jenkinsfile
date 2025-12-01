@@ -62,9 +62,9 @@ pipeline {
                     )
 
                     sh """
-                        docker-compose -f docker-compose.${BRANCH_NAME}.yml --env-file .env down
-                        docker-compose -f docker-compose.${BRANCH_NAME}.yml --env-file .env pull
-                        docker-compose -f docker-compose.${BRANCH_NAME}.yml --env-file .env up -d --remove-orphans
+                        docker-compose -f docker-compose.yml --env-file .env down
+                        docker-compose -f docker-compose.yml --env-file .env pull
+                        docker-compose -f docker-compose.yml --env-file .env up -d --remove-orphans
                     """
 
                     sh 'docker rmi ${BACKEND_TAG_DH} ${FRONTEND_TAG_DH} || true'
