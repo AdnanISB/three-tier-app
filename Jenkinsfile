@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'ec2-dev' }  // agent-dev | agent-stg | agent-prod
+    agent { label 'ec2-dev' }   // ec2-dev | ec2-stg | ec2-prod
 
     environment {
         DOCKERHUB_CREDENTIALS_ID = 'dockerhub-credentials'
@@ -10,10 +10,17 @@ pipeline {
 
     options {
         skipStagesAfterUnstable()
+        timestamps()
+        // ❌ ansiColor is NOT valid here → removed
+    }
+
+    // ✅ Enable ANSI colors for the whole pipeline
+    wrappers {
         ansiColor('xterm')
     }
 
     stages {
+
         stage('Checkout Source') {
             steps { checkout scm }
         }
@@ -58,14 +65,13 @@ pipeline {
         stage('Prepare .env for Compose') {
             steps {
                 writeFile(
-                file: '.env', 
+                file: '.env',
                 text: """
                 BACKEND_IMAGE=${BACKEND_TAG_DH}
                 FRONTEND_IMAGE=${FRONTEND_TAG_DH}
                 """)
             }
         }
-
 
         stage('Deploy Environment') {
             steps {
