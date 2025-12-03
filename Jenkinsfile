@@ -54,12 +54,12 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo "✅ ${BRANCH_NAME} environment deployed successfully using Docker Hub images!"
-        }
-        failure {
-            echo "❌ Deployment failed for ${BRANCH_NAME}. Check logs."
-        }
+   post {
+    success {
+        echo "✅ ${env.GIT_BRANCH ?: 'main'} environment deployed successfully using Docker Hub images!"
     }
+    failure {
+        echo "❌ Deployment failed for ${env.GIT_BRANCH ?: 'main'}. Check logs."
+    }
+}
 }
