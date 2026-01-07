@@ -15,6 +15,10 @@ spec:
       labels:
         app: mongo
     spec:
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
       containers:
       - name: mongo
         image: mongo:6
@@ -23,16 +27,16 @@ spec:
         ports:
         - containerPort: 27017
         env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongo-secret
-                key: MONGO_INITDB_ROOT_USERNAME
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo-secret
-                key: MONGO_INITDB_ROOT_PASSWORD
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
         volumeMounts:
         - name: mongo-storage
           mountPath: /data/db
@@ -40,9 +44,10 @@ spec:
   - metadata:
       name: mongo-storage
     spec:
-      accessModes: ["ReadWriteOnce"]
+      accessModes:
+      - ReadWriteOnce
       resources:
         requests:
           storage: 1Gi
-      storageClassName: standard-storage
+         
 

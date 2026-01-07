@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: addd275/frontend:v1
+        image: addd275/three-tier:v2
         ports:
         - containerPort: 3000
         resources:
