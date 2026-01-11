@@ -11,13 +11,21 @@ nodes:
       - containerPort: 443
         hostPort: 443
         protocol: TCP
+    extraMounts:
+      - hostPath: /mnt/kind-storage/mongo
+        containerPath: /data/mongo
       
 
   # Worker node 1
   - role: worker
     image: kindest/node:v1.28.0
-
+    extraMounts:
+      - hostPath: /mnt/kind-storage/mongo
+        containerPath: /data/mongo
+        
   # Worker node 2
   - role: worker
     image: kindest/node:v1.28.0
-
+    extraMounts:
+      - hostPath: /mnt/kind-storage/mongo
+        containerPath: /data/mongo
